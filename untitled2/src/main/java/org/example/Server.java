@@ -44,7 +44,7 @@ import java.util.regex.Pattern;
         }
 
         // This method broadcasts a message to all connected clients
-        public void broadcast(String message) {
+        public synchronized void broadcast(String message) {
             for (ConnectionHandler ch : connections) {
                 if (ch != null) {
                     ch.sendMessage(message);
@@ -52,7 +52,7 @@ import java.util.regex.Pattern;
             }
         }
 
-        public void changeBuyMessage(String color, String name) {
+        public synchronized void changeBuyMessage(String color, String name) {
             for (ConnectionHandler ch : connections) {
                 if (ch != null && !ch.nickname.equals(name)) {
                     ch.sendMessage(color);
@@ -114,7 +114,7 @@ import java.util.regex.Pattern;
                 }
             }
 
-            public void getFromUser() throws IOException {
+            public synchronized void getFromUser() throws IOException {
                 String message = null;
                 while ((message = in.readLine()) != null) {
 
